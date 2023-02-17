@@ -54,5 +54,5 @@ async def transcribe_audio(audio_file: UploadFile = None, model: str = Form(DEFA
         )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")

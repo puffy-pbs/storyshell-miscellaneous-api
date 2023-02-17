@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import asyncio
+import os.path
+import random
+
 import aiofiles as aiofiles
 from fastapi import FastAPI, UploadFile, HTTPException
 
@@ -31,18 +35,24 @@ async def transcribe_audio(audio_file: UploadFile = None, model: str = Form(DEFA
         dto = AudioInputDto(audio_file, model)
 
         # Where we will store the actual uploaded file
-        output_filename = "web/" + dto.audio_file.filename
+        filename, extension = os.path.splitext(dto.audio_file.filename)
+        rnd = random.randint(100, 100000)
+        output_filename = "web/" + filename + str(rnd) + extension
 
         # Save the uploaded file
         async with aiofiles.open(output_filename, "wb") as out_file:
             content = await dto.audio_file.read()
             await out_file.write(content)
 
-        whisper_model = whisper.load_model(dto.model)
-
-        # Transcribe using whisper
-        return whisper.transcribe(whisper_model, output_filename)
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(
+            None,
+            lambda: whisper.transcribe(
+                whisper.load_model(dto.model),
+                output_filename
+            )
+        )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))

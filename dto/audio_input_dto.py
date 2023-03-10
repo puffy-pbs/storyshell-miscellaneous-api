@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import UploadFile
 
-from constants import VALID_MODELS
+from helpers.constants import VALID_MODELS
 
 
 class AudioInputDto:

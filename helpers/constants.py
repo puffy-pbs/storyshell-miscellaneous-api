@@ -1,2 +1,5 @@
 DEFAULT_MODEL = "tiny"
 VALID_MODELS = ["tiny", "base", "small", "medium", "large"]
+
+DEFAULT_PRESENTATION_WIDTH = 1200
+DEFAULT_PRESENTATION_HEIGHT = 800

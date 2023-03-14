@@ -1,0 +1,5 @@
+# Exclude virtual env
+venv/
+
+# Exclude readme
+*.md

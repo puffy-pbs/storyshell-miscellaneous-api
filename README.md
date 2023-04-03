@@ -1,6 +1,4 @@
-If you will use docker perform the steps listed below:
-1. docker build -t storyshell-miscellaneous-api (to build the docker image)
-2. docker run --rm -p 5000:5000 storyshell-miscellaneous-api (to run the docker container using the image above)
+If you will use docker run "docker compose up" in the root of the project.
 
 The server is listening - localhost:5000
 

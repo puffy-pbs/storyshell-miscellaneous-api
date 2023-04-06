@@ -1,3 +1,11 @@
+# Storyshell miscellaneous API
+
+# Endpoints
+POST "/transcribe" - it transcribes audio and return it`s 'text', 'segments', 'language' properties using "openai/whisper"
+
+POST "/thumbnails" - it generates thumbnails from a presentation file using "soffice" and "ImageMagick"
+
+# Running the project
 If you will use docker run "docker compose up" in the root of the project.
 
 The server is listening - localhost:5000
